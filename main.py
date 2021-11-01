@@ -11,14 +11,16 @@ def dailyWOTD():
   r = RandomWords()
   word = r.word_of_the_day()
   parsed_json = json.loads(word)
-  message_body = parsed_json['definations'][0]['text']
+  message_body_word = parsed_json['word']
+  message_body_def = parsed_json['definations'][0]['text']
+  message_body = 'Word: ' + message_body_word + ' - ' + 'Definition: ' + message_body_def
 
   message = client.messages.create(
                                 body=message_body,
-                                from_='+1', # Add your twilio phone number
-                                to='+1' # Add your phone number or the one you want to send them to
+                                from_='+12133363631',
+                                to='+17086651159'
                             )
 
 while True:
-    if time.localtime().tm_hour == 19  and time.localtime().tm_min == 0: # It uses military time, be aware. (0-23)
+    if time.localtime().tm_hour == 19  and time.localtime().tm_min == 0:
         dailyWOTD()
